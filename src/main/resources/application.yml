@@ -1,7 +1,0 @@
-server:
-  port: 443
-  ssl:
-    key-store: /etc/letsencrypt/live/app.mazoni.org/keystore.p12
-    key-store-password: mazoni12
-    keyStoreType: PKCS12
-    keyAlias: springboot
