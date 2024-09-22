@@ -1,0 +1,8 @@
+server:
+  ssl:
+    key-alias: spring-https
+    key-store: classpath:shoope.jks
+    key-store-type: JKS
+    key-password: mazoni12
+
+port: 443
