@@ -24,7 +24,7 @@ public class RouteProcess {
     private String route;
 
     @Column(name = "time", nullable = false)
-    private String time; // Alternativamente, pode usar LocalTime
+    private String time;
 
     @Column(name = "waiting", nullable = false)
     private boolean waiting;

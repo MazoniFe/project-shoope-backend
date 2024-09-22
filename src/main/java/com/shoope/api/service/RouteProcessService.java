@@ -19,7 +19,7 @@ public class RouteProcessService {
 
     public ResponseEntity<?> register (InsertRouteProcessDTO data) {
         try {
-            RouteProcess routeProcess = repository.save(new RouteProcess(null,data.route(), data.station(), data.time(), data.waiting()));
+            RouteProcess routeProcess = repository.save(new RouteProcess(null,data.station(), data.route(), data.time(), data.waiting()));
             return ResponseEntity.ok(routeProcess);
         } catch (RuntimeException ex) {
             throw new RuntimeException(ex.getMessage());
