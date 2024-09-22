@@ -1,8 +1,7 @@
 server:
+  port: 443
   ssl:
-    key-alias: spring-https
-    key-store: classpath:shoope.jks
-    key-store-type: JKS
-    key-password: mazoni12
-
-port: 443
+    key-store: /etc/letsencrypt/live/app.mazoni.org/keystore.p12
+    key-store-password: mazoni12
+    keyStoreType: PKCS12
+    keyAlias: springboot
