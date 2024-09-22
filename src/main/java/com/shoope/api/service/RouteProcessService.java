@@ -33,6 +33,7 @@ public class RouteProcessService {
 
     public ResponseEntity<?> deleteAll() {
         try {
+            repository.deleteAll();
             return ResponseEntity.ok(new Response(200L, "Data cleaning was processed successfully"));
         } catch (RuntimeException exception) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
