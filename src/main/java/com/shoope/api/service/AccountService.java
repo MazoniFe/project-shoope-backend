@@ -3,10 +3,12 @@ package com.shoope.api.service;
 import com.shoope.api.dtos.InsertAccountDTO;
 import com.shoope.api.entity.Account;
 import com.shoope.api.repository.AccountRepository;
+import com.shoope.api.utils.Response;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,8 @@ public class AccountService {
 
     public ResponseEntity<?> register(InsertAccountDTO data) {
         try {
-            Account account = repository.save(new Account(null,data.email(), data.password()));
-            return ResponseEntity.ok(account);
+            Account account = repository.save(new Account(data.email(), data.password()));
+            return ResponseEntity.ok().body(account);
         } catch (RuntimeException ex) {
             throw new RuntimeException(ex.getMessage());
         }
@@ -39,11 +41,13 @@ public class AccountService {
         }
     }
 
-    public Account selectAccountByEmail(String email) {
+    public ResponseEntity<?> selectAccountByEmailAndPassword(String email, String password) {
         try {
-            return repository.findByEmail(email).orElseThrow(() -> new EntityNotFoundException("Bad Credentials"));
-        } catch (RuntimeException ex) {
-            throw new RuntimeException(ex.getMessage());
+            Account account = repository.findByEmailAndPassword(email, password)
+                    .orElseThrow(() -> new EntityNotFoundException("Bad Credentials"));
+            return ResponseEntity.ok(account);
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new Response(401L, "Bad Request"));
         }
     }
 }

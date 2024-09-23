@@ -1,6 +1,7 @@
 package com.shoope.api.controller;
 
 import com.shoope.api.dtos.InsertAccountDTO;
+import com.shoope.api.dtos.LoginDTO;
 import com.shoope.api.entity.Account;
 import com.shoope.api.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +24,16 @@ public class AccountController {
     }
 
     @GetMapping
-    public Page<Account> getRouteProcesses(
+    public Page<Account> getAccounts(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "50") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return service.selectAccounts(pageable);
     }
 
-    @GetMapping("/login")
-    public Account getAccountByEmail(@RequestBody String email) {
-        return service.selectAccountByEmail(email);
+    @PostMapping("/login")
+    public ResponseEntity<?> getAccountByEmail(@RequestBody LoginDTO data) {
+        return service.selectAccountByEmailAndPassword(data.email(), data.password());
     }
 
     @DeleteMapping("/{id}")
