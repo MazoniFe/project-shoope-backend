@@ -1,4 +1,4 @@
-package com.shoope.api.service;
+package com.shoope.api.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
